@@ -1,0 +1,28 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple API using the database module",
+  "main": "server.js",
+  "scripts": {
+    "start": "NODE_ENV=production node server.js",
+    "start-dev": "DEBUG=apicareers:* nodemon server.js",
+    "lint": "standard"
+  },
+  "author": "VRAraya",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "database": "file:../database",
+    "express": "^4.17.1",
+    "express-asyncify": "^1.0.1",
+    "express-jwt": "^6.0.0",
+    "express-jwt-permissions": "^1.3.3",
+    "jsonwebtoken": "^8.5.1"
+  },
+  "devDependencies": {
+    "debug": "^4.1.1",
+    "nodemon": "^2.0.4",
+    "standard": "^14.3.4"
+  }
+}

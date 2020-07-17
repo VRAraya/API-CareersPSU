@@ -1,0 +1,26 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A Simple Database for API",
+  "main": "index.js",
+  "scripts": {
+    "setup": "DEBUG=apicareers:* node setup.js",
+    "lint": "standard",
+    "populate": "DEBUG=apicareers:* node population/populate.js"
+  },
+  "author": "VRAraya",
+  "license": "MIT",
+  "devDependencies": {
+    "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "chalk": "^4.1.0",
+    "debug": "^4.1.1",
+    "defaults": "^1.0.3",
+    "inquirer": "^7.3.2",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.3"
+  }
+}
