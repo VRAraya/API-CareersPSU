@@ -1,13 +1,16 @@
 const debug = require('debug')('apicareers:api:routes')
 const express = require('express')
-const asyncify = require('express-asyncify')
 const auth = require('express-jwt')
 const guard = require('express-jwt-permissions')()
-const db = require('database')
 
-const config = require('./config')
+const db = require('psucareers-database')
+const serverConfig = require('psucareers-config')
 
-const api = asyncify(express.Router())
+const config = serverConfig({
+  logging: s => debug(s)
+})
+
+const api = express.Router()
 
 let services, Career
 

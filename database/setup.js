@@ -2,8 +2,9 @@
 
 const debug = require('debug')('apicareers:db:setup')
 const inquirer = require('inquirer')
-const chalk = require('chalk')
 const db = require('./')
+const chalk = require('chalk')
+const setupConfig = require('psucareers-config')
 
 const prompt = inquirer.createPromptModule()
 
@@ -20,17 +21,12 @@ async function setup() {
     return console.log('Nothing happened :)')
   }
 
-  const config = {
-    database: process.env.DB_NAME || 'psucareers',
-    username: process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || 'Test123**',
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql',
-    logging: s => debug(s),
-    setup: true
-  }
+  const config = setupConfig({
+    setup: true,
+    logging: s => debug(s)
+  })
 
-  await db(config).catch(handleFatalError)
+  await db(config.db).catch(handleFatalError)
 
   console.log('Success!')
   process.exit(0)

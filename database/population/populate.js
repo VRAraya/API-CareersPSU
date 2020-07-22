@@ -48,6 +48,8 @@ async function run() {
     console.log('---career---')
     console.log(career)
   }
+
+  process.exit(0)
 }
 
 

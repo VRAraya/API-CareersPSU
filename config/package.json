@@ -1,0 +1,19 @@
+{
+  "name": "config",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A simple config module for API",
+  "main": "config.js",
+  "scripts": {
+    "lint": "standard"
+  },
+  "author": "VRAraya",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "standard": "^14.3.4"
+  }
+}
