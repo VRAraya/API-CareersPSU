@@ -27,14 +27,14 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/careers', auth(config.auth), async (req, res, next) => {
+api.get('/careers', async (req, res, next) => {
   debug('A request has come to /careers')
 
   const { user } = req
 
-  if (!user || !user.username) {
+  /*if (!user || !user.username) {
     return next(new Error('Not authorized'))
-  }
+  } */
 
   let careers = []
 
