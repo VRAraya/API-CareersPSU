@@ -7,7 +7,7 @@
   "scripts": {
     "setup": "DEBUG=apicareers:* node setup.js",
     "lint": "standard",
-    "populate": "DEBUG=apicareers:* node population/populate.js"
+    "seed": "DEBUG=apicareers:* node seed/seed.js"
   },
   "author": "VRAraya",
   "license": "MIT",

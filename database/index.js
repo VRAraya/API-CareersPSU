@@ -3,6 +3,8 @@
 const setupDatabase = require('./lib/db')
 const setupCareer = require('./lib/career')
 const setupCareerModel = require('./models/career')
+const setupUser = require('./lib/user')
+const setupUserModel = require('./models/user')
 const defaults = require('defaults')
 
 module.exports = async function (config) {
@@ -20,6 +22,7 @@ module.exports = async function (config) {
 
   const sequelize = setupDatabase(config)
   const CareerModel = setupCareerModel(config)
+  const UserModel = setupUserModel(config)
 
   await sequelize.authenticate()
 
@@ -28,8 +31,10 @@ module.exports = async function (config) {
   }
 
   const Career = setupCareer(CareerModel)
+  const User = setupUser(UserModel)
 
   return {
-    Career
+    Career,
+    User
   }
 }

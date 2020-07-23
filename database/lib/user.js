@@ -1,0 +1,81 @@
+'use strict'
+
+const bcrypt = require('bcrypt')
+
+module.exports = function setupUser(UserModel) {
+  async function create(user) {
+    const { rut, email, password } = user
+    const hashedPassword = await bcrypt.hashSync(password, 10)
+
+    console.log(hashedPassword)
+
+    const result = await UserModel.create({
+      rut,
+      email,
+      password: hashedPassword
+    })
+
+    return result.toJSON()
+  }
+
+  async function createAdmin(user) {
+    const { rut, email, isAdmin, password } = user
+    const hashedPassword = await bcrypt.hashSync(password, 10)
+
+    console.log(hashedPassword)
+
+    const result = await UserModel.create({
+      rut,
+      email,
+      isAdmin,
+      password: hashedPassword
+    })
+
+    return result.toJSON()
+  }
+
+  function findById(id) {
+    return UserModel.findById(id)
+  }
+
+  function findAll() {
+    return UserModel.findAll()
+  }
+
+  function findByRut(rut) {
+    return UserModel.findAll({
+      where: {
+        rut
+      }
+    })
+  }
+
+  function isAdmin(rut) {
+    return UserModel.findAll({
+      where: {
+        rut
+      },
+      attributes: {
+        isAdmin
+      }
+    })
+  }
+
+  function findByEmail(email) {
+    return UserModel.findOne({
+      where: {
+        email
+      }
+    })
+  }
+
+  return {
+    create,
+    createAdmin,
+    findById,
+    findAll,
+    findByRut,
+    isAdmin,
+    findByEmail
+  }
+}

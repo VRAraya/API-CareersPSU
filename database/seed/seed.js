@@ -1,31 +1,29 @@
 'use strict'
 
-const db = require('../')
+const db = require('..')
 const fs = require('fs')
+const populateConfig = require('psucareers-config')
+const debug = require('debug')('apicareers:db:seed')
 
 let careerArray = []
 let careerLine
 let careerInfo
 
-fs.readFile('/home/vissstors/Documentos/API-CarrerasPSU/database/population/PSUCareers.csv', 'utf8', function read(err, data) {
+fs.readFile('/home/vissstors/Documentos/API-CarrerasPSU/database/seed/PSUCareers.csv', 'utf8', function read(err, data) {
   if (err) {
     throw err
   }
   careerArray = data.split(/\r?\n/)
 })
 
-async function run() {
-  const config = {
-    database: process.env.DB_NAME || 'psucareers',
-    username: process.env.DB_USER || 'root',
-    password: process.env.DB_PASS || 'Test123**',
-    host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql'
-  }
+const config = populateConfig({
+  logging: s => debug(s)
+})
 
-  const { Career } = await db(config).catch(handleFatalError)
+async function seed() {
+  const { User, Career } = await db(config.db).catch(handleFatalError)
 
-  console.log(careerArray)
+  console.log('---Careers---')
 
   for (careerLine of careerArray) {
     careerInfo = careerLine.split(',')
@@ -45,9 +43,33 @@ async function run() {
       lastscorelastyear: parseFloat(careerInfo[12])
     }).catch(handleFatalError)
 
-    console.log('---career---')
     console.log(career)
   }
+
+  console.log('---User Admin---')
+
+  let userAdmin = await User.createAdmin({
+    rut: 1,
+    email: 'root@undefined.sh',
+    isAdmin: true,
+    password: config.db.defaultAdminPassword
+  })
+
+  let firstUser = await User.create({
+    rut: 2,
+    email: '2@undefined.sh',
+    password: config.db.defaultPassword
+  })
+
+  let secondUser = await User.create({
+    rut: 2,
+    email: '2@undefined.sh',
+    password: config.db.defaultPassword
+  })
+
+  console.log(userAdmin)
+  console.log(firstUser)
+  console.log(secondUser)
 
   process.exit(0)
 }
@@ -59,4 +81,4 @@ function handleFatalError(err) {
   process.exit(1)
 }
 
-run()
+seed()

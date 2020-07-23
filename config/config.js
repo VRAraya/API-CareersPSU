@@ -10,10 +10,14 @@ const config = ({ setup = false, logging = () => { } } = {}) => ({
     host: process.env.DB_HOST,
     dialect: 'mysql',
     logging,
-    setup
+    setup,
+    defaultAdminPassword: process.env.DEFAULT_ADMIN_PASSWORD,
+    defaultPassword: process.env.DEFAULT_PASSWORD,
+    publicApiKeyToken: process.env.PUBLIC_API_KEY_TOKEN,
+    AdminApiKeyToken: process.env.ADMIN_API_KEY_TOKEN
   },
   auth: {
-    secret: process.env.SECRET || 'test',
+    defaultAdminJwtSecret: process.env.DEFAULT_ADMIN_JWT_SECRET || 'test',
     algorithms: ['RS256']
   }
 })
