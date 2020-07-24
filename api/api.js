@@ -12,7 +12,7 @@ const config = serverConfig({
 
 const api = express.Router()
 
-let services, Career
+let services, Career, User
 
 api.use('*', async (req, res, next) => {
   if (!services) {
@@ -23,18 +23,13 @@ api.use('*', async (req, res, next) => {
       return next(error)
     }
     Career = services.Career
+    User = services.User
   }
   next()
 })
 
 api.get('/careers', async (req, res, next) => {
   debug('A request has come to /careers')
-
-  const { user } = req
-
-  /*if (!user || !user.username) {
-    return next(new Error('Not authorized'))
-  } */
 
   let careers = []
 
@@ -46,7 +41,7 @@ api.get('/careers', async (req, res, next) => {
   res.send(careers)
 })
 
-api.get('/career/codeid/:codeid', auth(config.auth), guard.check(['careers:read']), async (req, res, next) => {
+api.get('/career/codeid/:codeid', async (req, res, next) => {
   const { codeid } = req.params
 
   debug(`request to /career/${codeid}`)
@@ -65,7 +60,7 @@ api.get('/career/codeid/:codeid', auth(config.auth), guard.check(['careers:read'
   res.send(career)
 })
 
-api.get('/career/name/:name', auth(config.auth), guard.check(['careers:read']), async (req, res, next) => {
+api.get('/career/name/:name', async (req, res, next) => {
   const { name } = req.params
 
   debug(`request to /career/${name}`)
@@ -80,6 +75,19 @@ api.get('/career/name/:name', auth(config.auth), guard.check(['careers:read']), 
   if (!career) { return next(new Error(`Career not found with name ${name}`)) }
 
   res.send(career)
+})
+
+api.get('/users', async (req, res, next) => {
+  debug('A request has come to /users')
+
+  let users = []
+
+  try {
+    users = await User.findAll()
+  } catch (error) {
+    return next(error)
+  }
+  res.send(users)
 })
 
 module.exports = api
