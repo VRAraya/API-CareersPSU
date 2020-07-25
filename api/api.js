@@ -28,7 +28,7 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/careers', async (req, res, next) => {
+api.get('/careers', auth({ secret: config.auth.defaultAdminJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
   debug('A request has come to /careers')
 
   let careers = []

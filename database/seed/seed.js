@@ -49,27 +49,42 @@ async function seed() {
   console.log('---User Admin---')
 
   let userAdmin = await User.createAdmin({
-    rut: 1,
-    email: 'root@undefined.sh',
+    rut: config.db.defaultAdminRut,
+    email: config.db.defaultAdminEmail,
     isAdmin: true,
     password: config.db.defaultAdminPassword
   })
 
   let firstUser = await User.create({
-    rut: 2,
-    email: '2@undefined.sh',
-    password: config.db.defaultPassword
+    rut: config.db.defaultFirstRut,
+    email: config.db.defaultFirstEmail,
+    password: config.db.defaultFirstPassword
   })
 
   let secondUser = await User.create({
-    rut: 2,
-    email: '2@undefined.sh',
-    password: config.db.defaultPassword
+    rut: config.db.defaultSecondRut,
+    email: config.db.defaultSecondEmail,
+    password: config.db.defaultSecondPassword
   })
 
   console.log(userAdmin)
   console.log(firstUser)
   console.log(secondUser)
+
+
+  /*const adminScopes = [
+    'signin:auth',
+    'signup:auth',
+    'read:users',
+    'create:users',
+    'read:careers'
+  ]
+
+  const publicScopes = [
+    'signin:auth',
+    'signup:auth',
+    'read:careers'
+  ]*/
 
   process.exit(0)
 }

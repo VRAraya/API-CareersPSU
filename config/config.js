@@ -11,14 +11,20 @@ const config = ({ setup = false, logging = () => { } } = {}) => ({
     dialect: 'mysql',
     logging,
     setup,
+    defaultAdminRut: process.env.DEFAULT_ADMIN_RUT,
     defaultAdminPassword: process.env.DEFAULT_ADMIN_PASSWORD,
-    defaultPassword: process.env.DEFAULT_PASSWORD,
-    publicApiKeyToken: process.env.PUBLIC_API_KEY_TOKEN,
-    adminApiKeyToken: process.env.ADMIN_API_KEY_TOKEN
+    defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAIL,
+    defaultFirstRut: process.env.DEFAULT_FIRST_RUT,
+    defaultFirstPassword: process.env.DEFAULT_FIRST_PASSWORD,
+    defaultFirstEmail: process.env.DEFAULT_FIRST_EMAIL,
+    defaultSecondRut: process.env.DEFAULT_SECOND_RUT,
+    defaultSecondPassword: process.env.DEFAULT_SECOND_PASSWORD,
+    defaultSecondEmail: process.env.DEFAULT_SECOND_EMAIL,
   },
   auth: {
-    defaultAdminJwtSecret: process.env.DEFAULT_ADMIN_JWT_SECRET || 'test',
-    algorithms: ['RS256']
+    defaultAdminJwtSecret: process.env.DEFAULT_ADMIN_JWT_SECRET,
+    defaultFirstUserJwtSecret: process.env.DEFAULT_FIRST_USER_JWT_SECRET,
+    defaultSecondUserJwtSecret: process.env.DEFAULT_SECOND_USER_JWT_SECRET
   }
 })
 

@@ -7,6 +7,7 @@ const chalk = require('chalk')
 const cors = require('cors')
 
 const api = require('./api')
+const auth = require('./auth')
 
 const port = process.env.PORT || 3000
 const app = express()
@@ -15,6 +16,7 @@ const server = http.createServer(app)
 // Middlewares
 app.use(cors())
 app.use('/api', api)
+app.use('/api/auth', auth)
 
 // Express Error Handler
 app.use((err, req, res, next) => {
