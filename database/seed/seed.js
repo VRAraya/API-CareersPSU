@@ -48,6 +48,7 @@ async function seed() {
 
   console.log('---User Admin---')
 
+  console.log(config.db.defaultAdminRut)
   let userAdmin = await User.createAdmin({
     rut: config.db.defaultAdminRut,
     email: config.db.defaultAdminEmail,

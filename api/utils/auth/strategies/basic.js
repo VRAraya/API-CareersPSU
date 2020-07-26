@@ -15,8 +15,9 @@ const config = serverConfig({
 
 let services, User
 
-passport.use(
-  new BasicStrategy(async function (rut, password, cb) {
+passport.use(new BasicStrategy(
+  async function (rut, password, cb) {
+    // Connecting to the database
     if (!services) {
       debug('Connecting to database')
       try {
@@ -26,12 +27,15 @@ passport.use(
       }
       User = services.User
     }
-    rut = Number(rut)
-
+    // Search the rut in the database
     try {
+      debug('Searching into the database')
+      rut = Number(rut)
+      debug('rut')
       const [user] = await User.findByRut(rut)
+      debug(user)
       if (!user) {
-        return cb(boom.unauthorized(), false)
+        return cb(boom.unauthorized("No autorizado"), false)
       }
 
       if (!(await bcrypt.compare(password, user.password))) {
@@ -40,6 +44,7 @@ passport.use(
 
       return cb(null, user)
     } catch (error) {
+      debug('Fatal Error')
       return cb(error)
     }
   })
