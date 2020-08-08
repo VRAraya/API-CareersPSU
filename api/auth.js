@@ -21,6 +21,7 @@ auth.post('/token', async function (req, res, next) {
   passport.authenticate("basic", function (error, user) {
     try {
       if (error || !user) {
+        debug('estoy acá')
         next(boom.unauthorized("No autorizado"))
       }
 

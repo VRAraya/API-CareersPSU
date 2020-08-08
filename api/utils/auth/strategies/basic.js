@@ -35,6 +35,7 @@ passport.use(new BasicStrategy(
       const [user] = await User.findByRut(rut)
       debug(user)
       if (!user) {
+        debug('estoy aqui')
         return cb(boom.unauthorized("No autorizado"), false)
       }
 

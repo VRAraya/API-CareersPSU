@@ -1,6 +1,8 @@
 const debug = require('debug')('apicareers:api:routes')
 const express = require('express')
+const bodyParser = require('body-parser')
 const auth = require('express-jwt')
+const optimalcareer = require('./utils/functions/optimalcareers')
 const guard = require('express-jwt-permissions')()
 
 const db = require('psucareers-database')
@@ -88,6 +90,30 @@ api.get('/users', async (req, res, next) => {
     return next(error)
   }
   res.send(users)
+})
+
+api.post('/apply', bodyParser.json(), async (req, res, next) => {
+  debug('A user wants to apply')
+
+  let careers = []
+
+  try {
+    let nem = req.body.nem
+    let ranking = req.body.ranking
+    let maths = req.body.maths
+    let language = req.body.language
+    let science = req.body.science
+    let history = req.body.history
+
+    careers = await Career.findAll()
+
+    let topTenCareers = optimalcareer(careers, nem, ranking, maths, language, science, history)
+
+  } catch (error) {
+    return next(error)
+  }
+
+  res.send(topTenCareers)
 })
 
 module.exports = api
