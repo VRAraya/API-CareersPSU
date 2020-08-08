@@ -1,8 +1,6 @@
 'use strict'
 
 module.exports = function setupCareer(CareerModel) {
-  const { QueryTypes } = require('sequelize')
-
   async function createOrUpdate(career) {
     const cond = {
       where: {
@@ -34,7 +32,7 @@ module.exports = function setupCareer(CareerModel) {
   }
 
   function findAll() {
-    return CareerModel.findAll({ type: QueryTypes.SELECT })
+    return CareerModel.findAll()
   }
 
   function findByName(name) {

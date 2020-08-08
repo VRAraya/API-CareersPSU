@@ -31,16 +31,13 @@ passport.use(new BasicStrategy(
     try {
       debug('Searching into the database')
       rut = Number(rut)
-      debug('rut')
       const [user] = await User.findByRut(rut)
-      debug(user)
       if (!user) {
-        debug('estoy aqui')
-        return cb(boom.unauthorized("No autorizado"), false)
+        return cb(boom.unauthorized("Usuario incorrecto"), false)
       }
 
       if (!(await bcrypt.compare(password, user.password))) {
-        return cb(boom.unauthorized(), false)
+        return cb(boom.unauthorized("Contraseña incorrecta"), false)
       }
 
       return cb(null, user)

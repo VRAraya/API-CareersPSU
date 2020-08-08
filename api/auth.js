@@ -21,13 +21,12 @@ auth.post('/token', async function (req, res, next) {
   passport.authenticate("basic", function (error, user) {
     try {
       if (error || !user) {
-        debug('estoy acá')
-        next(boom.unauthorized("No autorizado"))
+        return next(error)
       }
 
       req.login(user, { session: false }, async function (error) {
         if (error) {
-          next(error)
+          return next(error)
         }
 
         const payload = { sub: user.rut, email: user.email }

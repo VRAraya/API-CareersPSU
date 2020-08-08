@@ -1,9 +1,11 @@
+//This section is used to fill the database
+
 'use strict'
 
+const seedConfig = require('psucareers-config')
+const debug = require('debug')('apicareers:db:seed')
 const db = require('..')
 const fs = require('fs')
-const populateConfig = require('psucareers-config')
-const debug = require('debug')('apicareers:db:seed')
 
 let careerArray = []
 let careerLine
@@ -16,14 +18,14 @@ fs.readFile('/home/vissstors/Documentos/API-CarrerasPSU/database/seed/PSUCareers
   careerArray = data.split(/\r?\n/)
 })
 
-const config = populateConfig({
+const config = seedConfig({
   logging: s => debug(s)
 })
 
 async function seed() {
   const { User, Career } = await db(config.db).catch(handleFatalError)
 
-  console.log('---Careers---')
+  debug('---Careers---')
 
   for (careerLine of careerArray) {
     careerInfo = careerLine.split(',')
@@ -43,12 +45,12 @@ async function seed() {
       lastscorelastyear: parseFloat(careerInfo[12])
     }).catch(handleFatalError)
 
-    console.log(career)
+    debug(career)
   }
 
-  console.log('---User Admin---')
+  debug('---User Admin---')
 
-  console.log(config.db.defaultAdminRut)
+  debug(config.db.defaultAdminRut)
   let userAdmin = await User.createAdmin({
     rut: config.db.defaultAdminRut,
     email: config.db.defaultAdminEmail,
@@ -61,17 +63,6 @@ async function seed() {
     email: config.db.defaultFirstEmail,
     password: config.db.defaultFirstPassword
   })
-
-  let secondUser = await User.create({
-    rut: config.db.defaultSecondRut,
-    email: config.db.defaultSecondEmail,
-    password: config.db.defaultSecondPassword
-  })
-
-  console.log(userAdmin)
-  console.log(firstUser)
-  console.log(secondUser)
-
 
   /*const adminScopes = [
     'signin:auth',

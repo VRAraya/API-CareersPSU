@@ -95,25 +95,24 @@ api.get('/users', async (req, res, next) => {
 api.post('/apply', bodyParser.json(), async (req, res, next) => {
   debug('A user wants to apply')
 
-  let careers = []
-
   try {
-    let nem = req.body.nem
-    let ranking = req.body.ranking
-    let maths = req.body.maths
-    let language = req.body.language
-    let science = req.body.science
-    let history = req.body.history
+    const nem = req.body.nem
+    const ranking = req.body.ranking
+    const maths = req.body.maths
+    const language = req.body.language
+    const science = req.body.science
+    const history = req.body.history
 
-    careers = await Career.findAll()
+    const careers = await Career.findAll()
 
-    let topTenCareers = optimalcareer(careers, nem, ranking, maths, language, science, history)
+    const topTenCareers = optimalcareer(careers, nem, ranking, maths, language, science, history)
+
+    res.send(topTenCareers)
 
   } catch (error) {
     return next(error)
   }
 
-  res.send(topTenCareers)
 })
 
 module.exports = api

@@ -3,38 +3,40 @@ function calculateWeightedScore(nemRequired, rankingRequired, mathsRequired, lan
 }
 
 function calculateTentativePosition(firstScoreLastYear, lastScoreLastYear, vacancies, weightedScore) {
-  let quota = (firstScoreLastYear - lastScoreLastYear) / vacancies
-
-  return Math.ceil((firstScoreLastYear - weightedScore) / quota)
+  const quota = (firstScoreLastYear - lastScoreLastYear) / vacancies
+  const gap = firstScoreLastYear - weightedScore
+  if (gap < 0) {
+    return 1
+  }
+  return Math.floor((gap) / quota) + 1
 }
 
 module.exports = function optimalcareers(careers, nem, ranking, maths, language, science, history) {
   let topCareers = []
-
-  for (career in careers) {
-    console.log(careers)
-    let weightedScore = calculateWeightedScore(career.nem, career.ranking, career.maths, career.language, career.science, career.history, nem, ranking, maths, language, science, history)
-    let tentativePosition = calculateTentativePosition(career.firstscorelastyear, career.lastscorelastyear, career.vacancies, weightedScore)
-    let quadCareerScore = {
+  for (career of careers) {
+    const weightedScore = calculateWeightedScore(career.nem, career.ranking, career.maths, career.language, career.science, career.history, nem, ranking, maths, language, science, history)
+    const tentativePosition = calculateTentativePosition(career.firstscorelastyear, career.lastscorelastyear, career.vacancies, weightedScore)
+    const quadCareerScore = {
       careerId: career.codeid,
       careerName: career.name,
       weightedScore: weightedScore,
       tentativePosition: tentativePosition
     }
+
     topCareers.push(quadCareerScore)
   }
 
   topCareers.sort(function (a, b) {
-    if (a.tentativePosition > b.tentativePosition) {
+    if (a.weightedScore < b.weightedScore) {
       return 1
     }
-    if (a.tentativePosition < b.tentativePosition) {
+    if (a.weightedScore > b.weightedScore) {
       return -1;
     }
     return 0
   })
 
-  let topTenCareers = topCareers.slice(0, 10)
+  const topTenCareers = topCareers.slice(0, 10)
 
   return topTenCareers
 }
