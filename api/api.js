@@ -30,7 +30,7 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
+api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['careers:read']), async (req, res, next) => {
   debug('A request has come to /careers')
 
   try {
@@ -43,7 +43,7 @@ api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['H
 
 })
 
-api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
+api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['career:read']), async (req, res, next) => {
   const { codeid } = req.params
 
   debug(`request to /career/${codeid}`)
@@ -62,7 +62,7 @@ api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, a
   res.send(career)
 })
 
-api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
+api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['careers:read']), async (req, res, next) => {
   const { name } = req.params
 
   debug(`request to /career/${name}`)
@@ -79,7 +79,7 @@ api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algor
   res.send(career)
 })
 
-api.get('/users', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
+api.get('/users', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['users:read']), async (req, res, next) => {
   debug('A request has come to /users')
 
   try {
@@ -91,7 +91,7 @@ api.get('/users', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS2
   }
 })
 
-api.post('/apply', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), bodyParser.json(), async (req, res, next) => {
+api.post('/apply', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['careers:read']), bodyParser.json(), async (req, res, next) => {
   debug('A user wants to apply')
 
   try {

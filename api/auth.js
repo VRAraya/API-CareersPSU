@@ -31,17 +31,12 @@ auth.post('/token', async function (req, res, next) {
         let permissions = []
         if (user.isAdmin) {
           permissions = [
-            'signin:auth',
-            'signup:auth',
-            'read:users',
-            'create:users',
-            'read:careers'
+            'careers:read',
+            'users:read'
           ]
         } else {
           permissions = [
-            'signin:auth',
-            'signup:auth',
-            'read:careers'
+            'careers:read'
           ]
         }
 
