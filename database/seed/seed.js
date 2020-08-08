@@ -50,7 +50,6 @@ async function seed() {
 
   debug('---User Admin---')
 
-  debug(config.db.defaultAdminRut)
   let userAdmin = await User.createAdmin({
     rut: config.db.defaultAdminRut,
     email: config.db.defaultAdminEmail,
@@ -63,20 +62,6 @@ async function seed() {
     email: config.db.defaultFirstEmail,
     password: config.db.defaultFirstPassword
   })
-
-  /*const adminScopes = [
-    'signin:auth',
-    'signup:auth',
-    'read:users',
-    'create:users',
-    'read:careers'
-  ]
-
-  const publicScopes = [
-    'signin:auth',
-    'signup:auth',
-    'read:careers'
-  ]*/
 
   process.exit(0)
 }

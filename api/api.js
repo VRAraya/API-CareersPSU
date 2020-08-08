@@ -30,20 +30,20 @@ api.use('*', async (req, res, next) => {
   next()
 })
 
-api.get('/careers', auth({ secret: config.auth.defaultAdminJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
+api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
   debug('A request has come to /careers')
 
-  let careers = []
-
   try {
-    careers = await Career.findAll()
+    const careers = await Career.findAll()
+
+    res.send(careers)
   } catch (error) {
     return next(error)
   }
-  res.send(careers)
+
 })
 
-api.get('/career/codeid/:codeid', async (req, res, next) => {
+api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
   const { codeid } = req.params
 
   debug(`request to /career/${codeid}`)
@@ -62,7 +62,7 @@ api.get('/career/codeid/:codeid', async (req, res, next) => {
   res.send(career)
 })
 
-api.get('/career/name/:name', async (req, res, next) => {
+api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
   const { name } = req.params
 
   debug(`request to /career/${name}`)
@@ -79,20 +79,19 @@ api.get('/career/name/:name', async (req, res, next) => {
   res.send(career)
 })
 
-api.get('/users', async (req, res, next) => {
+api.get('/users', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), async (req, res, next) => {
   debug('A request has come to /users')
 
-  let users = []
-
   try {
-    users = await User.findAll()
+    const users = await User.findAll()
+
+    res.send(users)
   } catch (error) {
     return next(error)
   }
-  res.send(users)
 })
 
-api.post('/apply', bodyParser.json(), async (req, res, next) => {
+api.post('/apply', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), bodyParser.json(), async (req, res, next) => {
   debug('A user wants to apply')
 
   try {
@@ -102,13 +101,10 @@ api.post('/apply', bodyParser.json(), async (req, res, next) => {
     const language = req.body.language
     const science = req.body.science
     const history = req.body.history
-
     const careers = await Career.findAll()
-
     const topTenCareers = optimalcareer(careers, nem, ranking, maths, language, science, history)
 
     res.send(topTenCareers)
-
   } catch (error) {
     return next(error)
   }

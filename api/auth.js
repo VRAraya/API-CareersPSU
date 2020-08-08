@@ -28,9 +28,25 @@ auth.post('/token', async function (req, res, next) {
         if (error) {
           return next(error)
         }
+        let permissions = []
+        if (user.isAdmin) {
+          permissions = [
+            'signin:auth',
+            'signup:auth',
+            'read:users',
+            'create:users',
+            'read:careers'
+          ]
+        } else {
+          permissions = [
+            'signin:auth',
+            'signup:auth',
+            'read:careers'
+          ]
+        }
 
-        const payload = { sub: user.rut, email: user.email }
-        const token = jwt.sign(payload, config.auth.defaultAdminJwtSecret, {
+        const payload = { sub: user.rut, email: user.email, permissions: permissions }
+        const token = jwt.sign(payload, config.auth.defaultJwtSecret, {
           expiresIn: "15m"
         })
 

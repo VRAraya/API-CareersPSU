@@ -17,14 +17,9 @@ const config = ({ setup = false, logging = () => { } } = {}) => ({
     defaultFirstRut: process.env.DEFAULT_FIRST_RUT,
     defaultFirstPassword: process.env.DEFAULT_FIRST_PASSWORD,
     defaultFirstEmail: process.env.DEFAULT_FIRST_EMAIL,
-    defaultSecondRut: process.env.DEFAULT_SECOND_RUT,
-    defaultSecondPassword: process.env.DEFAULT_SECOND_PASSWORD,
-    defaultSecondEmail: process.env.DEFAULT_SECOND_EMAIL,
   },
   auth: {
-    defaultAdminJwtSecret: process.env.DEFAULT_ADMIN_JWT_SECRET,
-    defaultFirstUserJwtSecret: process.env.DEFAULT_FIRST_USER_JWT_SECRET,
-    defaultSecondUserJwtSecret: process.env.DEFAULT_SECOND_USER_JWT_SECRET
+    defaultJwtSecret: process.env.DEFAULT_JWT_SECRET,
   }
 })
 
