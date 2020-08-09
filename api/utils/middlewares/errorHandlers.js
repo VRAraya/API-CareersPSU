@@ -1,41 +1,42 @@
 'use strict'
 
 const serverConfig = require('psucareers-config')
+const boom = require('@hapi/boom')
 
 const config = serverConfig({
   logging: s => debug(s)
 })
 
+function withErrorStack(error, stack) {
+  if (config.db.dev) {
+    return { ...error, stack }
+  }
+
+  return error
+}
+
 function logErrors(err, req, res, next) {
-  console.log(err.stack)
+  console.log(err)
   next(err)
 }
 
-function clientErrorHandler(err, req, res, next) {
-  //Catch Error for AJAX requests
-  if (req.xhr) {
-    res.status(500).json({ err })
-  } else {
-    next(err)
+function wrapErrors(err, req, res, next) {
+  if (!err.isBoom) {
+    next(boom.badImplementation(err))
   }
+
+  next(err)
 }
 
 function errorHandler(err, req, res, next) {
-  //Catch Error while streaming
-  if (res.headersSent) {
-    next(err)
-  }
-  //if no dev environment, delete the stack error
-  /*if (!config.dev) {
-    delete err.stack
-  }*/
+  const { output: { statusCode, payload } } = err
 
-  res.status(err.status || 500)
-  res.render("error", { error: err })
+  res.status(statusCode)
+  res.json(withErrorStack(payload, err.stack))
 }
 
 module.exports = {
   logErrors,
-  clientErrorHandler,
+  wrapErrors,
   errorHandler
 }

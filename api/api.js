@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 const auth = require('express-jwt')
 const optimalcareer = require('./utils/functions/optimalcareers')
 const guard = require('express-jwt-permissions')()
+const boom = require('@hapi/boom')
 
 const db = require('psucareers-database')
 const serverConfig = require('psucareers-config')
@@ -36,7 +37,7 @@ api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['H
   try {
     const careers = await Career.findAll()
 
-    res.send(careers)
+    res.status(200).send(careers)
   } catch (error) {
     return next(error)
   }
@@ -55,11 +56,11 @@ api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, a
     return next(error)
   }
 
-  if (!career) {
+  if (!career || career.length == 0) {
     return next(new Error(`Career not found with codeid ${codeid}`))
   }
 
-  res.send(career)
+  res.status(200).send(career)
 })
 
 api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['careers:read']), async (req, res, next) => {
@@ -74,9 +75,9 @@ api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algor
     return next(error)
   }
 
-  if (!career) { return next(new Error(`Career not found with name ${name}`)) }
+  if (!career || career.length == 0) { return next(new Error(`Career not found with name ${name}`)) }
 
-  res.send(career)
+  res.status(200).send(career)
 })
 
 api.get('/users', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['users:read']), async (req, res, next) => {
@@ -85,7 +86,7 @@ api.get('/users', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS2
   try {
     const users = await User.findAll()
 
-    res.send(users)
+    res.status(200).send(users)
   } catch (error) {
     return next(error)
   }
@@ -101,10 +102,13 @@ api.post('/apply', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS
     const language = req.body.language
     const science = req.body.science
     const history = req.body.history
+    if (isNaN(nem) || isNaN(ranking) || isNaN(maths) || isNaN(language) || isNaN(science) || isNaN(history)) {
+      return next(boom.badRequest())
+    }
     const careers = await Career.findAll()
     const topTenCareers = optimalcareer(careers, nem, ranking, maths, language, science, history)
 
-    res.send(topTenCareers)
+    res.status(200).send(topTenCareers)
   } catch (error) {
     return next(error)
   }
