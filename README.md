@@ -29,61 +29,27 @@ Para poder desplegar y consumir este servicio, se deben seguir los siguientes pa
 
 3) Estos deben muestran un ejemplo de las variables de ambiente que deben ser configuradas para arrancar el servicio.
 
-    // CONFIG
-
-//Corresponde al puerto por el cual servidor express estará escuchando
-
-PORT=
-
-  
-
-//Abajo se corresponden los datos de la base de datos que debe crearse en MYSQL, se deja el tutorial aquí para saber como crear una https://oscarabadfolgueira.com/crear-una-base-datos-mysql-desde-consola/
-
-  
-
-// MYSQL
-
-DB_USER=
-
-DB_PASS=
-
-DB_HOST=
-
-DB_NAME=
-
-  
-
-//Estos datos se pueden rellenar libremente y corresponden a los dos usuarios que se crearán luego en la tabla Usuarios
-
-  
-
-// DEFAULT ADMIN USER
-
-DEFAULT_ADMIN_RUT=
-
-DEFAULT_ADMIN_PASSWORD=
-
-DEFAULT_ADMIN_EMAIL=
-
-  
-
-// DEFAULT FIRST USER
-
-DEFAULT_FIRST_RUT=
-
-DEFAULT_FIRST_PASSWORD=
-
-DEFAULT_FIRST_EMAIL=
-
-  
-
-// Este dato debe rellenarse con una palabra secreta que firmará los JWT Tokens
-
-  
-
-//AUTH
-
-DEFAULT_JWT_SECRET=
+	    // CONFIG
+		//Corresponde al puerto por el cual servidor express estará escuchando
+		PORT=
+		//Abajo se corresponden los datos de la base de datos que debe crearse en MYSQL, se deja el tutorial aquí para saber como crear una https://oscarabadfolgueira.com/crear-una-base-datos-mysql-desde-consola/
+		// MYSQL
+		DB_USER=
+		DB_PASS=
+		DB_HOST=
+		DB_NAME=
+		//Estos datos se pueden rellenar libremente y corresponden a los dos usuarios que se crearán luego en la tabla Usuarios
+		DEFAULT ADMIN USER
+		DEFAULT_ADMIN_RUT=
+		DEFAULT_ADMIN_PASSWORD=
+		DEFAULT_ADMIN_EMAIL=
+		// DEFAULT FIRST USER
+		DEFAULT_FIRST_RUT=
+		DEFAULT_FIRST_PASSWORD=
+		DEFAULT_FIRST_EMAIL=
+		// Este dato debe rellenarse con una palabra secreta que firmará los JWT Tokens
+		//AUTH
+		DEFAULT_JWT_SECRET=
 
 Estos datos deben rellenarse según corresponda, y luego debe guardarse un .env en cada una de las posiciones de los dos .env.example
 
