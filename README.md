@@ -38,12 +38,13 @@ Luego, habrá que observar hay dos archivos .env.example, uno está dentro de la
   Estos deben muestran un ejemplo de las variables de ambiente que deben ser configuradas para arrancar el servicio.
 
 
-  // CONFIG
-PORT=    //Corresponde al puerto por el cual servidor express estará escuchando
+// CONFIG
+//Corresponde al puerto por el cual servidor express estará escuchando
+  PORT=    
 
 //Abajo se corresponden los datos de la base de datos que debe crearse en MYSQL, se deja el tutorial aquí para saber como crear una https://oscarabadfolgueira.com/crear-una-base-datos-mysql-desde-consola/
 
-// MYSQL 
+// MYSQL
 DB_USER=
 DB_PASS=
 DB_HOST=
@@ -101,6 +102,6 @@ Por fin, podremos consumir los endpoints indicados al principio, según las ruta
 
 Autores
 
-    Victor Araya Romero - Desarrollado/Documentación
+    Victor Araya Romero - Desarrollo/Documentación
     Israel Ramirez - Documentación
     Humberto Román- Documentación
