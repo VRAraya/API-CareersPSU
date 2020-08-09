@@ -17,9 +17,9 @@ Para la instalacion y correcto funcionamiento, se requiere lo siguiente:
 
 Se adjuntan los siguientes tutoriales para instalar los paquetes al detalle:
 
-[Node.js](https://www.hostinger.es/tutoriales/instalar-node-js-ubuntu/) - (v12.12.0) (sudo apt install nodejs)
-[Npm](https://www.hostinger.es/tutoriales/instalar-node-js-ubuntu/) - (v6.14.6)(sudo apt install npm)
-[MySQL](https://www.digitalocean.com/community/tutorials/como-instalar-mysql-en-ubuntu-18-04-es) (v8.0.20)(sudo apt install mysql-server)
+ - [Node.js](https://www.hostinger.es/tutoriales/instalar-node-js-ubuntu/) - (v12.12.0) (sudo apt install nodejs)
+ - [Npm](https://www.hostinger.es/tutoriales/instalar-node-js-ubuntu/) - (v6.14.6)(sudo apt install npm)
+ - [MySQL](https://www.digitalocean.com/community/tutorials/como-instalar-mysql-en-ubuntu-18-04-es) (v8.0.20)(sudo apt install mysql-server)
 
 Para poder desplegar y consumir este servicio, se deben seguir los siguientes pasos
 
