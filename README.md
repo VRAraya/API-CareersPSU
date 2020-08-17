@@ -25,9 +25,9 @@ Para poder desplegar y consumir este servicio, se deben seguir los siguientes pa
 
 1) Ya con estos paquetes instalados, se debe copiar los archivos del repositorio en alguna locación del equipo.
 
-2) Luego, habrá que observar hay dos archivos .env.example, uno está dentro de la carpeta /api, y el otro está en la carpeta /database.
+2) Luego, habrá que observar hay un archivo .env.example
 
-3) Estos deben muestran un ejemplo de las variables de ambiente que deben ser configuradas para arrancar el servicio.
+3) Este muestra un ejemplo de las variables de ambiente que deben ser configuradas para arrancar el servicio.
 
 	    // CONFIG
 		//Corresponde al puerto por el cual servidor express estará escuchando
@@ -51,13 +51,11 @@ Para poder desplegar y consumir este servicio, se deben seguir los siguientes pa
 		//AUTH
 		DEFAULT_JWT_SECRET=
 
-Estos datos deben rellenarse según corresponda, y luego debe guardarse un .env en cada una de las posiciones de los dos .env.example
+Estos datos deben rellenarse según corresponda, y luego debe guardarse un .env en la misma posicion del .env.example
 
   
-  
 
-4) Una vez hecho esto, pasaremos a construir la base de datos, para esto en la consola de comandos, dentro de la dirección de la carpeta /database, deben aplicarse los siguientes comandos:
-
+4) Una vez hecho esto, pasaremos a construir la base de datos, para esto en la consola de comandos, dentro de la carpeta debe ejecutarse:
   
 
 		1°) npm i //Este comando hará que se instalen las dependencias npm necesarias según el package.json
@@ -70,20 +68,18 @@ Estos datos deben rellenarse según corresponda, y luego debe guardarse un .env 
 
 		1°) npm i //Este comando hará que se instalen las dependencias npm necesarias según el package.json
 
-6) Finalmente, se aplicarán los siguientes comandos dentro de la dirección de la carpeta /api:
-		
-		1°) npm i //Este comando hará que se instalen las dependencias npm necesarias según el package.json
-		//Aquí se debe elegir si realizará un inicio del servidor en su forma para desarrolladores, o en su forma de producción, para lo primero, se elegirá el siguiente comando:
-		2°) npm run start-dev
+6) Finalmente, se debe elegir si realizará un inicio del servidor en su forma para desarrolladores, o en su forma de producción, para lo primero, se elegirá el siguiente comando:
+
+		1°) npm run start-dev
+
 		//Para lo segundo, se eligirá el siguiente comando:
+
 		2°) npm run start
 
 7) Si se realizan los pasos anteriores con éxito, la consola debiese indicar que el servidor está escuchando en el puerto configurado anteriormente.
 
 Por fin, podremos consumir los endpoints indicados al principio, según las rutas indicadas.
 
-  
-  
 
 Autores
 - Victor Araya Romero - Desarrollo/Documentación
