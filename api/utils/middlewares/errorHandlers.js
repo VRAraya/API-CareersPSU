@@ -1,6 +1,6 @@
 'use strict'
 
-const serverConfig = require('psucareers-config')
+const serverConfig = require('../config/config.js')
 const boom = require('@hapi/boom')
 
 const config = serverConfig({

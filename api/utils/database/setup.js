@@ -4,7 +4,7 @@ const debug = require('debug')('apicareers:db:setup')
 const inquirer = require('inquirer')
 const db = require('./')
 const chalk = require('chalk')
-const setupConfig = require('psucareers-config')
+const setupConfig = require('../config/config.js')
 
 const prompt = inquirer.createPromptModule()
 

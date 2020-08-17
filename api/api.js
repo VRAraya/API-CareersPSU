@@ -6,8 +6,8 @@ const optimalcareer = require('./utils/functions/optimalcareers')
 const guard = require('express-jwt-permissions')()
 const boom = require('@hapi/boom')
 
-const db = require('psucareers-database')
-const serverConfig = require('psucareers-config')
+const db = require('./utils/database/index.js')
+const serverConfig = require('./utils/config/config.js')
 
 const config = serverConfig({
   logging: s => debug(s)
@@ -44,7 +44,7 @@ api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['H
 
 })
 
-api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['career:read']), async (req, res, next) => {
+api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['careers:read']), async (req, res, next) => {
   const { codeid } = req.params
 
   debug(`request to /career/${codeid}`)

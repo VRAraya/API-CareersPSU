@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 
 const auth = express.Router()
 
-const serverConfig = require('psucareers-config')
+const serverConfig = require('./utils/config/config.js')
 
 const config = serverConfig({
   logging: s => debug(s)

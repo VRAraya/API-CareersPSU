@@ -6,8 +6,8 @@ const { BasicStrategy } = require('passport-http')
 const boom = require('@hapi/boom')
 const bcrypt = require('bcrypt')
 
-const db = require('psucareers-database')
-const serverConfig = require('psucareers-config')
+const db = require('../../database/index.js')
+const serverConfig = require('../../config/config.js')
 
 const config = serverConfig({
   logging: s => debug(s)

@@ -2,8 +2,9 @@
 
 'use strict'
 
-const seedConfig = require('psucareers-config')
+const seedConfig = require('../../config/config.js')
 const debug = require('debug')('apicareers:db:seed')
+const path = require('path')
 const db = require('..')
 const fs = require('fs')
 
@@ -11,7 +12,7 @@ let careerArray = []
 let careerLine
 let careerInfo
 
-fs.readFile('/home/vissstors/Documentos/API-CarrerasPSU/database/seed/PSUCareers.csv', 'utf8', function read(err, data) {
+fs.readFile(path.join(__dirname, '/PSUCareers.csv'), 'utf8', function read(err, data) {
   if (err) {
     throw err
   }
