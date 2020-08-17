@@ -80,6 +80,8 @@ Estos datos deben rellenarse según corresponda, y luego debe guardarse un .env 
 
 Por fin, podremos consumir los endpoints indicados al principio, según las rutas indicadas.
 
+Se agrega una coleccion de tests en Postman
+[Coleccion](https://www.getpostman.com/collections/c31d9b05917b7e22d26f)
 
 Autores
 - Victor Araya Romero - Desarrollo/Documentación
