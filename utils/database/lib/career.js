@@ -1,7 +1,7 @@
 'use strict'
 
-module.exports = function setupCareer(CareerModel) {
-  async function createOrUpdate(career) {
+module.exports = function setupCareer (CareerModel) {
+  async function createOrUpdate (career) {
     const cond = {
       where: {
         codeid: career.codeid
@@ -19,11 +19,11 @@ module.exports = function setupCareer(CareerModel) {
     return result.toJSON()
   }
 
-  function findById(id) {
+  function findById (id) {
     return CareerModel.findById(id)
   }
 
-  function findByCodeId(codeid) {
+  function findByCodeId (codeid) {
     return CareerModel.findOne({
       where: {
         codeid
@@ -31,11 +31,11 @@ module.exports = function setupCareer(CareerModel) {
     })
   }
 
-  function findAll() {
+  function findAll () {
     return CareerModel.findAll()
   }
 
-  function findByName(name) {
+  function findByName (name) {
     return CareerModel.findAll({
       where: {
         name

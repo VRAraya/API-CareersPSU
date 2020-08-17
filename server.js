@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000
 const app = express()
 const server = http.createServer(app)
 
-const { logErrors, wrapErrors, errorHandler } = require('./utils/middlewares/errorHandlers')
+const { logErrors, wrapErrors, errorHandler, errorTokenHandler } = require('./utils/middlewares/errorHandlers')
 const notFoundHandler = require('./utils/middlewares/notFoundHandler')
 
 // Middlewares
@@ -21,7 +21,10 @@ app.use(cors())
 app.use('/api', api)
 app.use('/api/auth', auth)
 
-//Catch 404
+// Catch Error Tokens
+app.use(errorTokenHandler)
+
+// Catch 404
 app.use(notFoundHandler)
 
 // Express Error Handler
@@ -29,7 +32,9 @@ app.use(logErrors)
 app.use(wrapErrors)
 app.use(errorHandler)
 
-function handleFatalError(err) {
+
+
+function handleFatalError (err) {
   console.error(`${chalk.red('[fatal error]')} ${err.message}`)
   console.error(err.stack)
   process.exit(1)

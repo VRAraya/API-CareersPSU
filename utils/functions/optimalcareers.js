@@ -1,8 +1,8 @@
-function calculateWeightedScore(nemRequired, rankingRequired, mathsRequired, languageRequired, scienceRequired, historyRequired, nem, ranking, maths, language, sciencie, history) {
+function calculateWeightedScore (nemRequired, rankingRequired, mathsRequired, languageRequired, scienceRequired, historyRequired, nem, ranking, maths, language, sciencie, history) {
   return nemRequired * nem + rankingRequired * ranking + mathsRequired * maths + languageRequired * language + scienceRequired * sciencie + historyRequired * history
 }
 
-function calculateTentativePosition(firstScoreLastYear, lastScoreLastYear, vacancies, weightedScore) {
+function calculateTentativePosition (firstScoreLastYear, lastScoreLastYear, vacancies, weightedScore) {
   const quota = (firstScoreLastYear - lastScoreLastYear) / vacancies
   const gap = firstScoreLastYear - weightedScore
   if (gap < 0) {
@@ -11,9 +11,9 @@ function calculateTentativePosition(firstScoreLastYear, lastScoreLastYear, vacan
   return Math.floor((gap) / quota) + 1
 }
 
-module.exports = function optimalcareers(careers, nem, ranking, maths, language, science, history) {
-  let topCareers = []
-  for (career of careers) {
+module.exports = function optimalcareers (careers, nem, ranking, maths, language, science, history) {
+  const topCareers = []
+  for (const career of careers) {
     const weightedScore = calculateWeightedScore(career.nem, career.ranking, career.maths, career.language, career.science, career.history, nem, ranking, maths, language, science, history)
     const tentativePosition = calculateTentativePosition(career.firstscorelastyear, career.lastscorelastyear, career.vacancies, weightedScore)
     const quadCareerScore = {
@@ -31,7 +31,7 @@ module.exports = function optimalcareers(careers, nem, ranking, maths, language,
       return 1
     }
     if (a.weightedScore > b.weightedScore) {
-      return -1;
+      return -1
     }
     return 0
   })

@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const setupDatabase = require('../lib/db')
 
-module.exports = function setupCareerModel(config) {
+module.exports = function setupCareerModel (config) {
   const sequelize = setupDatabase(config)
 
   return sequelize.define('career', {

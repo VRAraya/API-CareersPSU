@@ -1,4 +1,4 @@
-//This section is used to fill the database
+// This section is used to fill the database
 
 'use strict'
 
@@ -12,7 +12,7 @@ let careerArray = []
 let careerLine
 let careerInfo
 
-fs.readFile(path.join(__dirname, '/PSUCareers.csv'), 'utf8', function read(err, data) {
+fs.readFile(path.join(__dirname, '/PSUCareers.csv'), 'utf8', function read (err, data) {
   if (err) {
     throw err
   }
@@ -23,7 +23,7 @@ const config = seedConfig({
   logging: s => debug(s)
 })
 
-async function seed() {
+async function seed () {
   const { User, Career } = await db(config.db).catch(handleFatalError)
 
   debug('---Careers---')
@@ -31,7 +31,7 @@ async function seed() {
   for (careerLine of careerArray) {
     careerInfo = careerLine.split(',')
 
-    let career = await Career.createOrUpdate({
+    const career = await Career.createOrUpdate({
       codeid: parseInt(careerInfo[1]),
       name: careerInfo[0],
       nem: parseFloat(careerInfo[2]),
@@ -51,14 +51,14 @@ async function seed() {
 
   debug('---User Admin---')
 
-  let userAdmin = await User.createAdmin({
+  await User.createAdmin({
     rut: config.db.defaultAdminRut,
     email: config.db.defaultAdminEmail,
     isAdmin: true,
     password: config.db.defaultAdminPassword
   })
 
-  let firstUser = await User.create({
+  await User.create({
     rut: config.db.defaultFirstRut,
     email: config.db.defaultFirstEmail,
     password: config.db.defaultFirstPassword
@@ -67,8 +67,7 @@ async function seed() {
   process.exit(0)
 }
 
-
-function handleFatalError(err) {
+function handleFatalError (err) {
   console.error(err.message)
   console.error(err.stack)
   process.exit(1)

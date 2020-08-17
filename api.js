@@ -41,7 +41,6 @@ api.get('/careers', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['H
   } catch (error) {
     return next(error)
   }
-
 })
 
 api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS256'] }), guard.check(['careers:read']), async (req, res, next) => {
@@ -56,8 +55,8 @@ api.get('/career/codeid/:codeid', auth({ secret: config.auth.defaultJwtSecret, a
     return next(error)
   }
 
-  if (!career || career.length == 0) {
-    return next(new Error(`Career not found with codeid ${codeid}`))
+  if (!career || career.length === 0) {
+    return next(boom.badRequest(`Career not found with codeid ${codeid}`))
   }
 
   res.status(200).send(career)
@@ -75,7 +74,7 @@ api.get('/career/name/:name', auth({ secret: config.auth.defaultJwtSecret, algor
     return next(error)
   }
 
-  if (!career || career.length == 0) { return next(new Error(`Career not found with name ${name}`)) }
+  if (!career || career.length === 0) { return next(boom.badRequest(`Career not found with name ${name}`)) }
 
   res.status(200).send(career)
 })
@@ -112,7 +111,6 @@ api.post('/apply', auth({ secret: config.auth.defaultJwtSecret, algorithms: ['HS
   } catch (error) {
     return next(error)
   }
-
 })
 
 module.exports = api

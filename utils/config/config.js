@@ -17,10 +17,10 @@ const config = ({ setup = false, logging = () => { } } = {}) => ({
     defaultAdminEmail: process.env.DEFAULT_ADMIN_EMAIL,
     defaultFirstRut: process.env.DEFAULT_FIRST_RUT,
     defaultFirstPassword: process.env.DEFAULT_FIRST_PASSWORD,
-    defaultFirstEmail: process.env.DEFAULT_FIRST_EMAIL,
+    defaultFirstEmail: process.env.DEFAULT_FIRST_EMAIL
   },
   auth: {
-    defaultJwtSecret: process.env.DEFAULT_JWT_SECRET,
+    defaultJwtSecret: process.env.DEFAULT_JWT_SECRET
   }
 })
 

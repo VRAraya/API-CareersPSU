@@ -2,8 +2,8 @@
 
 const bcrypt = require('bcrypt')
 
-module.exports = function setupUser(UserModel) {
-  async function create(user) {
+module.exports = function setupUser (UserModel) {
+  async function create (user) {
     const { rut, email, password } = user
     const hashedPassword = await bcrypt.hashSync(password, 10)
 
@@ -16,7 +16,7 @@ module.exports = function setupUser(UserModel) {
     return result.toJSON()
   }
 
-  async function createAdmin(user) {
+  async function createAdmin (user) {
     const { rut, email, isAdmin, password } = user
     const hashedPassword = await bcrypt.hashSync(password, 10)
 
@@ -30,15 +30,15 @@ module.exports = function setupUser(UserModel) {
     return result.toJSON()
   }
 
-  async function findById(id) {
+  async function findById (id) {
     return UserModel.findById(id)
   }
 
-  async function findAll() {
+  async function findAll () {
     return await UserModel.findAll()
   }
 
-  async function findByRut(rut) {
+  async function findByRut (rut) {
     const result = await UserModel.findAll({
       where: {
         rut
@@ -47,7 +47,7 @@ module.exports = function setupUser(UserModel) {
     return result
   }
 
-  function isAdmin(rut) {
+  function isAdmin (rut) {
     return UserModel.findAll({
       where: {
         rut
@@ -58,7 +58,7 @@ module.exports = function setupUser(UserModel) {
     })
   }
 
-  function findByEmail(email) {
+  function findByEmail (email) {
     return UserModel.findOne({
       where: {
         email
